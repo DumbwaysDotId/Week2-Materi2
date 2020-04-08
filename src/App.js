@@ -1,61 +1,57 @@
 import React,{Component} from 'react';
-import './App.css';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 
-import Todo from './Todo';
+import Todo from './pages/TodoApp';
+import Flex from './pages/FlexCss';
+import List from './pages/List';
+import Frame from './pages/frameworkCSS';
+
 
 class App extends Component {
-
-  constructor(){
-    super()
-    this.state = {
-      todos: []
-    }
-
-    this.todoInput = ""
-  }
-
-  addTodo(){
-    let todoValue = this.todoInput.value
-    let newTodos = this.state.todos
-    newTodos.push(todoValue)
-    
-    this.setState({
-      todos: newTodos
-    })
-
-    //Reset Value
-    this.todoInput.value = ""
-
-    //Set Focus to input
-    this.todoInput.focus()
-  }
-
-  removeTodo(id) {
-    let todos = this.state.todos.filter((todo,index) => {
-      return id !== index
-    })
-
-    this.setState({
-      todos: todos
-    })
-  }
-
   render(){
     return(
-      <div className = "App-header">
-        <h1>Todo App</h1>
-          <p>Todo's Count : {this.state.todos.length}</p>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">TodoApp</Link>
+            </li>
+            <li>
+              <Link to="/list">ListApp</Link>
+            </li>
+            <li>
+              <Link to="/flex">FlexApp</Link>
+            </li>
+            <li>
+              <Link to="/frame">FrameApp</Link>
+            </li>
+          </ul>
+        </nav>
 
-        <ul>
-          {this.state.todos.map((todo,index) => {
-            return (<Todo id={index} key={index} todo={todo} onRemove={() => this.removeTodo(index)}/>)
-           } ) }
-        </ul>
+        <Switch>
+          
+          <Route path ="/list">
+            <List />
+          </Route>
 
-        <input type="text" placeholder="Enter Todo" ref={(input) => this.todoInput = input} />
-        <button onClick={this.addTodo.bind(this)}>Add</button>
+          <Route path ="/flex">
+            <Flex />
+          </Route>
+
+          <Route path ="/frame">
+            <Frame />
+          </Route>
+
+          <Route path ="/">
+            <Todo />
+          </Route>
+
+        </Switch>
+
       </div>
-    );
+    </Router>
+    )
   }
 }
 
