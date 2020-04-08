@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Flex from './FlexCss';
+import List from './List';
+import Frame from './frameworkCSS';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
